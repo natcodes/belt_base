@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <p><a href="/success"><button>Dashboard </button> | </a>
+    <a href="/"><button>PeaceOUT</button></a></p>
+    
+    <h2>Posts by {{user.name}}</h2>
+    <h2>Count: {{count}}</h2>
+    
+    {% for quote in quotes %}
+        <p>{{quote.quote_by}} <br> {{quote.message}}</p>
+    {% endfor %}
+
+
+</body>
+</html>

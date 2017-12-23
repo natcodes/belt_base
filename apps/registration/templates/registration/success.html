@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>QuoteBook</title>
+</head>
+    
+<body>
+    <h1> Happy Quoting, {{user_logged}}!</h1>
+    {{request.session.name}}
+    <!-- works as a key/val user_logged ref req.session.nmae -->
+    <a href="/"><button>PeaceOUT</button></a>
+
+    <div id="quotable">
+        <h3>Quotable Quotes</h3>
+        <!-- connects to success method and takes all the quotes except the ones faved -->
+        {% for quote in notfavquotes %} 
+            <p> {{quote.quote_by}}<br>{{ quote.message}}</p>
+            <p> Posted by: <a href="/pages/{{quote.posted_by.id}}">{{quote.posted_by.name}}</a></p>
+            <a href="/quotes/addfav/{{quote.id}}"><button>Add to My List</button></a>
+        {% endfor %}
+        <!-- class div for every db quote w "add to my list" button -->
+    </div>
+
+    <div id="my_quotes">
+        <h3>Your Favorites</h3>
+        {% for quote in user_logged.favquotes.all %}
+            <p> {{quote.quote_by}}<br>{{ quote.message }}</p>
+            <p> Posted by: <a href="/pages/{{quote.posted_by.id}}">{{quote.posted_by.name}}</a></p>            
+            <a href="/quotes/unfav/{{quote.id}}"><button>Remove From My List</button></a>
+        {% endfor %}
+        </div>
+    </div>
+
+    <div id="contrib_quote">
+        <h3> Contribute a Quote: </h3>
+        <form class="create" action="/create" method="POST">
+            {% csrf_token %}
+        <!-- change action so that at submission it add to "my favorite quotes" -->
+            <p>Quoted By: <input type="text" name="quoted_by"></p>
+            <p>Message:  <input type="text" name="message"></p>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+</body>
+</html>
